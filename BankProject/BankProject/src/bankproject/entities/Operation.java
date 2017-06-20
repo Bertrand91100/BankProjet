@@ -5,14 +5,12 @@ import bankproject.enumerations.TypeOperationEnum;
 public class Operation extends AbstractEntity {
 
 	private Integer id;
-	private Double amount;
-	private TypeOperationEnum type_operation;
-	private Integer accountNumber;
+	private Integer account_number;
 	private Integer customer_id;
+	private TypeOperationEnum type_operation;
 	private String date_Operation;
-
+	private Double amount;
 	
-
 	public Integer getId() {
 		return id;
 	}
@@ -21,21 +19,32 @@ public class Operation extends AbstractEntity {
 		this.id = id;
 	}
 
-	public Double getAmount() {
-		return amount;
+
+	
+	public Integer getAccount_number() {
+		return account_number;
 	}
 
-	public void setAmount(Double amount) {
-		this.amount = amount;
+	public void setAccount_number(Integer account_number) {
+		this.account_number = account_number;
 	}
+
+	public Integer getCustomer_id() {
+		return customer_id;
+	}
+
+
+	public void setCustomer_id(Integer customer_id) {
+		this.customer_id = customer_id;
+	}
+
 
 	public TypeOperationEnum getType_operation() {
 		return type_operation;
 	}
 
-	public void setType_operation(TypeOperationEnum type_operation) {
-		this.type_operation = type_operation;
-	}
+
+
 
 	public void setType_operation(String nature_operation) {
 
@@ -47,35 +56,42 @@ public class Operation extends AbstractEntity {
 			
 		case "DEBIT":
 			this.type_operation = TypeOperationEnum.DEBIT;
-			break;
+			break;}
 		
 		}
-	}
 
-	public Integer getAccountNumber() {
-		return accountNumber;
-	}
 
-	public void setAccountNumber(Integer accountNumber) {
-		this.accountNumber = accountNumber;
-	}
 
-	public Integer getCustomer_id() {
-		return customer_id;
-	}
-
-	public void setCustomer_id(Integer customer_id) {
-		this.customer_id = customer_id;
-	}
 
 	public String getDate_Operation() {
 		return date_Operation;
 	}
+
+
+
 
 	public void setDate_Operation(String date_Operation) {
 		this.date_Operation = date_Operation;
 	}
 
 
+
+
+	public Double getAmount() {
+		return amount;
+	}
+
+
+
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+
+
+
+
 	
+	
+
 }

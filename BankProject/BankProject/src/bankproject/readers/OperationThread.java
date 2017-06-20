@@ -7,7 +7,7 @@ public class OperationThread extends Thread {
 
 	public static void main(String[] args) {
 
-		OperationThread ot = new OperationThread("B");
+		new OperationThread("B");
 	}
 
 
@@ -24,7 +24,7 @@ public class OperationThread extends Thread {
 
 		while (true) {
 
-			OperationReader or = new OperationReader();
+			new OperationReader();
 
 			try {
 				Thread.sleep(time);

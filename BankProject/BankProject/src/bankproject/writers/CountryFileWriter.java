@@ -1,5 +1,5 @@
 package bankproject.writers;
 
-public class FileCreditorsWriter {
+public class CountryFileWriter {
 
 }

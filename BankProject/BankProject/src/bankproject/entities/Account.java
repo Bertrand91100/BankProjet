@@ -1,17 +1,25 @@
 package bankproject.entities;
 
-import bankproject.enumerations.PaysEnum;
+import bankproject.enumerations.CountryEnum;
 
 public class Account extends AbstractEntity {
 
 	private Integer id;
-	private String accountNumber;
+	private String account_number;
 	private Integer customer_id;
-	private PaysEnum country;
+	private CountryEnum country;
 	private Double solde;
 	
+	public Integer getId() {
+		return id;
+	}
 
-	public String accountNumber(PaysEnum country) {
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	
+	public String accountNumber(CountryEnum country) {
 
 		StringBuilder sb = new StringBuilder();
 		int digit, i;
@@ -50,25 +58,16 @@ public class Account extends AbstractEntity {
 	}
 
 
-	public Integer getId() {
-		return id;
+	
+
+
+	public String getAccount_number() {
+		return account_number;
 	}
 
-
-	public void setId(Integer id) {
-		this.id = id;
+	public void setAccount_number(String account_number) {
+		this.account_number = account_number;
 	}
-
-
-	public String getAccountNumber() {
-		return accountNumber;
-	}
-
-
-	public void setAccountNumber(String accountNumber) {
-		this.accountNumber = accountNumber;
-	}
-
 
 	public Integer getCustomer_id() {
 		return customer_id;
@@ -80,12 +79,12 @@ public class Account extends AbstractEntity {
 	}
 
 
-	public PaysEnum getCountry() {
+	public CountryEnum getCountry() {
 		return country;
 	}
 
 
-	public void setCountry(PaysEnum country) {
+	public void setCountry(CountryEnum country) {
 		this.country = country;
 	}
 	
@@ -95,22 +94,22 @@ public class Account extends AbstractEntity {
 		switch (country_) {
 
 		case "FRANCE":
-			this.country = PaysEnum.FRANCE;
+			this.country = CountryEnum.FRANCE;
 			break;
 		case "BELGIQUE":
-			this.country = PaysEnum.BELGIQUE;
+			this.country = CountryEnum.BELGIQUE;
 			break;
 		case "ESPAGNE":
-			this.country = PaysEnum.ESPAGNE;
+			this.country = CountryEnum.ESPAGNE;
 			break;
 		case "GRANDE-BRETAGNE":
-			this.country = PaysEnum.GRANDE_BRETAGNE;
+			this.country = CountryEnum.GRANDE_BRETAGNE;
 			break;
 		case "ALLEMAGNE":
-			this.country = PaysEnum.ALLEMAGNE;
+			this.country = CountryEnum.ALLEMAGNE;
 			break;
 		case "PAYS_-BAS":
-			this.country = PaysEnum.PAYS_BAS;
+			this.country = CountryEnum.PAYS_BAS;
 			break;
 		
 		}	

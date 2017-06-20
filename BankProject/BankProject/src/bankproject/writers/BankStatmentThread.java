@@ -3,12 +3,11 @@ package bankproject.writers;
 public class BankStatmentThread extends Thread {
 	
 
-
-	int time = 60000 * 13; // Conversion de 13 minutes en millisecondes
+	int time = 60 * 1000 * 13; // Conversion de 13 minutes en millisecondes
 	
 	public static void main(String[] args) {
 
-		BankStatmentThread bst = new BankStatmentThread("C");
+		new BankStatmentThread("C");
 	}
 
 	public BankStatmentThread(String name) {
@@ -20,18 +19,18 @@ public class BankStatmentThread extends Thread {
 	
 		public void run() {
 
-		while (true) { // TODO Ajouter une condition de sortie
+		while (true) {
 
-			FileCountryWriter fcw = new FileCountryWriter();
+			new CountryFileWriter();
 
-			FileDebitorsWriter fdebw = new FileDebitorsWriter();
+			new DebitorsFileWriter();
 
-			FileCreditorsWriter fcrew = new FileCreditorsWriter();
+			new CreditorsFileWriter();
 
 			try {
 				Thread.sleep(time);
 			} catch (InterruptedException ie) {
-				continue; // Recommencer en début de boucle
+				continue;
 			}
 		}
 	}

@@ -35,7 +35,7 @@ public class SrvOperation extends AbstractService {
 			connection = getDbManager().getConnection();
 			ps = connection.prepareStatement(sql);
 
-			ps.setString(1, entity.getAccountNumber().toString());
+			ps.setString(1, entity.getAccount_number().toString());
 			ps.setString(2, entity.getCustomer_id().toString());
 			ps.setString(3, entity.getAmount().toString());
 			ps.setString(4, entity.getDate_Operation());
@@ -58,7 +58,7 @@ public class SrvOperation extends AbstractService {
 		}
 	}
 
-	// (amount, type_operation, account_number, customer_id, date)
+	// (amount, type_operation, account_number, customer_id, date, id)
 
 	private void update(Operation entity) throws SQLException {
 		String sql = "UPDATE " + getEntitySqlTable()
@@ -72,7 +72,7 @@ public class SrvOperation extends AbstractService {
 
 			ps.setString(1, entity.getAmount().toString());
 			ps.setString(2, entity.getType_operation().toString());
-			ps.setString(3, entity.getAccountNumber().toString());
+			ps.setString(3, entity.getAccount_number().toString());
 			ps.setString(4, entity.getCustomer_id().toString());
 			ps.setString(5, entity.getDate_Operation());
 			ps.setInt(6, entity.getId());
@@ -99,7 +99,7 @@ public class SrvOperation extends AbstractService {
 		Operation operation = new Operation();
 		operation.setId(rs.getInt("id"));
 		operation.setAmount(rs.getDouble("amount"));
-		operation.setAccountNumber(rs.getInt("account_number"));;
+		operation.setAccount_number(rs.getInt("account_number"));;
 		operation.setType_operation(rs.getString("type_operation"));
 		operation.setCustomer_id(rs.getInt("customer_id"));
 		operation.setDate_Operation(rs.getString("date"));
@@ -129,7 +129,7 @@ public class SrvOperation extends AbstractService {
 		try {
 			connection = getDbManager().getConnection();
 			ps = connection.prepareStatement(sql);
-			ps.setInt(1, entity.getAccountNumber());
+			ps.setInt(1, entity.getAccount_number());
 			ps.setString(2, entity.getDate_Operation());
 			ps.setString(3, entity.getType_operation().toString());
 			ps.setInt(4, entity.getId());

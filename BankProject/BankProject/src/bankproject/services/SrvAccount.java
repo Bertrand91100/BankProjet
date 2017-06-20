@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import bankproject.entities.AbstractEntity;
 import bankproject.entities.Account;
+import bankproject.enumerations.CountryEnum;
 import bankproject.exceptions.SrvException;
 
 public class SrvAccount extends AbstractService {
@@ -34,7 +35,7 @@ public class SrvAccount extends AbstractService {
 			ps = connection.prepareStatement(sql);
 
 			ps.setString(1, entity.getCountry().toString());
-			ps.setString(2, entity.getAccountNumber());
+			ps.setString(2, entity.getAccount_number());
 			ps.setString(3, entity.getCustomer_id().toString());
 			ps.setString(4, entity.getSolde().toString());
 
@@ -65,7 +66,7 @@ public class SrvAccount extends AbstractService {
 			ps = connection.prepareStatement(sql);
 
 			ps.setString(1, entity.getCountry().toString());
-			ps.setString(2, entity.getAccountNumber());
+			ps.setString(2, entity.getAccount_number());
 			ps.setString(3, entity.getCustomer_id().toString());
 			ps.setString(4, entity.getSolde().toString());
 			ps.setInt(5, entity.getId());
@@ -96,7 +97,7 @@ public class SrvAccount extends AbstractService {
 			ps = connection.prepareStatement(sql);
 
 			ps.setString(1, entity.getCountry().toString());
-			ps.setString(2, entity.getAccountNumber());
+			ps.setString(2, entity.getAccount_number());
 			ps.setString(3, entity.getCustomer_id().toString());
 			ps.setString(4, entity.getSolde().toString());
 			ps.setInt(5, entity.getId());
@@ -124,7 +125,7 @@ public class SrvAccount extends AbstractService {
 		Account account = new Account();
 		account.setId(rs.getInt("id"));
 		account.setCountry(rs.getString("country"));
-		account.setAccountNumber(rs.getString("number"));
+		account.setAccount_number(rs.getString("number"));
 		account.setCustomer_id(rs.getInt("customer_id"));
 		account.setSolde(rs.getDouble("summary"));
 
@@ -150,50 +151,50 @@ public class SrvAccount extends AbstractService {
 		sb.append("CREATE TABLE IF NOT EXISTS Account ( ");
 		sb.append("id INTEGER PRIMARY KEY AUTOINCREMENT, ");
 		sb.append("country VARCHAR(30) NOT NULL, ");
-		sb.append("number VARCHAR(30) NOT NULL, ");
+		sb.append("account_number VARCHAR(30) NOT NULL, ");
 		sb.append("customer_id INTEGER NOT NULL, ");
-		sb.append("summary DOUBLE NOT NULL ");
 		sb.append(")");
 
 		return sb.toString();
 	}
+	
+	public String dropTableInDB() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("DROP TABLE IF EXISTS Account");
 
-	public Account get(String number_) throws Exception {
+		return sb.toString();
+	}
+	
 
-		Connection connexion = null;
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		Account result = null;
-
-		StringBuilder query = new StringBuilder("SELECT * FROM ");
-		query.append(getEntitySqlTable());
-		query.append(" WHERE (number = ?)");
-
+	public Account getByAccountNumberAndCountry(Integer accountNumber, CountryEnum country) throws Exception {
+		Connection connection = null;
+		PreparedStatement pst =  null;
+		Account account = null;
+		String sql = "SELECT * FROM " + getEntitySqlTable() + " WHERE country = ? AND account_number = ? ";
+		
 		try {
-			connexion = getDbManager().getConnection();
-			pst = connexion.prepareStatement(query.toString());
-			pst.setString(1, number_);
-			rs = pst.executeQuery();
-
-			while (rs.next()) {
-				result = populateEntity(rs);
+			connection = getDbManager().getConnection();
+			pst = connection.prepareStatement(sql);
+			pst.setString(1, country.name());
+			pst.setInt(2, accountNumber);
+			ResultSet rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				account = populateEntity(rs);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-
+		} finally {		
 			if (pst != null) {
 				pst.close();
 			}
-
-			if (connexion != null) {
-				connexion.close();
+			
+			if (connection != null) {
+				connection.close();
 			}
-
 		}
-		return result;
-
+		
+		return account;
 	}
-
 }

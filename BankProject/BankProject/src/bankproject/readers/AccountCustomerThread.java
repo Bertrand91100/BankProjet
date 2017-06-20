@@ -7,7 +7,7 @@ public class AccountCustomerThread extends Thread {
 
 	public static void main(String[] args) {
 
-		AccountCustomerThread act = new AccountCustomerThread("A");
+		new AccountCustomerThread("A");
 	}
 
 
@@ -23,7 +23,7 @@ public class AccountCustomerThread extends Thread {
 
 		while (true) {
 
-			AccountCustomerReader Acr = new AccountCustomerReader();
+			new AccountCustomerReader();
 
 			try {
 				Thread.sleep(time);

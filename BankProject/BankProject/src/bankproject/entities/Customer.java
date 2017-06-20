@@ -53,4 +53,6 @@ public class Customer extends AbstractEntity {
 	public String getFullName() {
 		return firstname + " " + lastname;
 	}
+
+	
 }

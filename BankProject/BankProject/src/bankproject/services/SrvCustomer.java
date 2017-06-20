@@ -139,19 +139,81 @@ public class SrvCustomer extends AbstractService {
 
 	public String createTableInDB() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("CREATE TABLE IF NOT EXISTS Customer ( ").append("id INTEGER PRIMARY KEY AUTOINCREMENT, ")
-				.append("firstname TEXT, ").append("lastname TEXT ").append(")");
+		sb.append("CREATE TABLE IF NOT EXISTS Customer ( ");
+		sb.append("id INTEGER PRIMARY KEY AUTOINCREMENT, ");
+		sb.append("firstname TEXT, ");
+		sb.append("lastname TEXT ");
+		sb.append(")");
 
 		return sb.toString();
 	}
 	
-	
-	
-	
-	
-	
-	
+	public String dropTableInDB() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("DROP TABLE IF EXISTS Customer;");
+
+		return sb.toString();
+	}
+
 	
 
+	public Customer get(String firstname_, String lastname_) throws Exception {
 
+		Connection connexion = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		Customer result = null;
+
+		StringBuilder query = new StringBuilder("SELECT * FROM ");
+		query.append(getEntitySqlTable());
+		query.append(" WHERE (firstname = ? AND lastname = ?)");
+
+		try {
+			connexion = getDbManager().getConnection();
+			pst = connexion.prepareStatement(query.toString());
+			pst.setString(1, firstname_);
+			pst.setString(2, lastname_);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				result = populateEntity(rs);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			if (pst != null) {
+				pst.close();
+			}
+
+			if (connexion != null) {
+				connexion.close();
+			}
+
+		}
+		return result;
+
+	}
+	
+	public Customer getOrCreateByName(String firstname, String lastname) throws Exception {
+		Customer customer = get(firstname, lastname);
+		if (customer == null) {
+			customer = new Customer();
+			customer.setLastname(lastname);
+			customer.setFirstname(firstname);
+			this.create(customer);
+		}
+		
+		return customer;
+	}
 }
+	
+	
+	
+	
+	
+	
+	
+
+
